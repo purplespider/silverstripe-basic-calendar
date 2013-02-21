@@ -1,0 +1,14 @@
+{
+	"name": "silverstripe/basic-calendar",
+	"description": "A simple calendar page module",
+	"type": "silverstripe-module",
+	"keywords": ["silverstripe", "calendar", "event"],
+		"authors": [{
+			"name": "James Cocker",
+			"email": "ssmodules@pswd.biz"
+	}],
+	"require": {
+		"silverstripe/framework": "3.*",
+		"silverstripe/cms": "3.*"
+	}
+}
