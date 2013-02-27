@@ -1,5 +1,5 @@
 {
-	"name": "silverstripe/basic-calendar",
+	"name": "purplespider/basic-calendar",
 	"description": "A simple calendar page module",
 	"type": "silverstripe-module",
 	"keywords": ["silverstripe", "calendar", "event"],
@@ -10,5 +10,6 @@
 	"require": {
 		"silverstripe/framework": "3.*",
 		"silverstripe/cms": "3.*"
-	}
+	},
+	"replace": {"silverstripe/basic-calendar": "*"}
 }
