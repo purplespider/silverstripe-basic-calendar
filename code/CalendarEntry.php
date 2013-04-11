@@ -40,6 +40,7 @@ class CalendarEntry extends DataObject{
 			$imagefield
 		);
 		
+		$this->extend('updateCMSFields', $fields);		
 		return $fields;		
 	}
 	
