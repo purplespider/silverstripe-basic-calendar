@@ -27,10 +27,9 @@ $Content
 
 <% else %>
 
+	<% if getEvents(past) %><p class="pastfuture"><a href="$Link?past">&raquo; View Past Events</a></p><% end_if %>
+	<h2>Upcoming Events</h2>
 	<% if getEvents(future) %>
-		
-		<% if getEvents(past) %><p class="pastfuture"><a href="$Link?past">&raquo; View Past Events</a></p><% end_if %>
-		<h2>Upcoming Events</h2>
 				
 			<% loop getEvents(future).GroupedBy(Year) %>
 						
