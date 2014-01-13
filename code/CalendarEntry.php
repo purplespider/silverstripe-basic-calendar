@@ -2,7 +2,7 @@
 
 class CalendarEntry extends DataObject{
 
- 	static $db = array(
+ 	public static $db = array(
  		"Title" => "Text",
  		"Date" => "Date",
  		"Time" => "Text",
@@ -21,21 +21,32 @@ class CalendarEntry extends DataObject{
 	
 	static $default_sort = "Date ASC, Time ASC";
 	
- 	 	
+ 	public function validate() {
+        $result = parent::validate();
+        if(!$this->Title) {
+            $result->error('Title is required');
+        }
+        if(!$this->Date) {
+            $result->error('Date is required');
+        } 
+        return $result;
+    }
+ 	
  	function getCMSFields() {
 		
-		$datefield = new DateField('Date','Date (DD/MM/YYYY)');
+		$datefield = new DateField('Date','Date (DD/MM/YYYY)*');
 		$datefield->setConfig('showcalendar', true);
 		$datefield->setConfig('dateformat', 'dd/MM/YYYY');
 		
-		$imagefield = new UploadField('Image','Image (optional)');
+		$imagefield = new UploadField('Image','Image');
 		$imagefield->allowedExtensions = array('jpg', 'gif', 'png');
 		$imagefield->setFolderName("Managed/CalendarImages");
+		$imagefield->setCanPreviewFolder(false);
 		
 		$fields = new FieldList(
-			new TextField('Title',"Event Title"),
+			new TextField('Title',"Event Title*"),
 			$datefield,
-			new TextField('Time',"Time (HH:MM) (optional)"),
+			new TextField('Time',"Time (HH:MM)"),
 			new TextareaField('Description'),
 			$imagefield
 		);

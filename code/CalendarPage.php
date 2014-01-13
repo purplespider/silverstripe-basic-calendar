@@ -4,12 +4,12 @@ class CalendarPage extends Page {
 	
 	static $description = "Provides an interface to add calendar events";
 	
-	static $db = array(
+	public static $db = array(
 		"EventTabFirst" => "Boolean",
 		"ManageAllEvents" => "Boolean"
 	);
 	
-	static $has_many = array(
+	public static $has_many = array(
 		"Events" => "CalendarEntry"
 	);
 	
@@ -40,6 +40,8 @@ class CalendarPage extends Page {
 }
 
 class CalendarPage_Controller extends Page_Controller {
+
+	public static $allowed_actions = array();
 	
 	public function init() {
 		if (Director::fileExists(project() . "/css/calendar.css")) {
