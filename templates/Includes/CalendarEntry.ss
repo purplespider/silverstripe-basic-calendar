@@ -5,7 +5,7 @@
 	
 	<% if Image %>
 		<a href="$Image.setWidth(900).URL" class="lightbox">
-			<% control Image.setWidth(150) %><img class="right" src="$URL" width="$Width" height="$Height" /><% end_control %>
+			<% loop Image.setWidth(150) %><img class="right" src="$URL" width="$Width" height="$Height" /><% end_loop %>
 		</a>
 	<% end_if %>
 	
