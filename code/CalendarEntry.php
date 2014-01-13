@@ -34,24 +34,29 @@ class CalendarEntry extends DataObject{
  	
  	function getCMSFields() {
 		
-		$datefield = new DateField('Date','Date (DD/MM/YYYY)*');
-		$datefield->setConfig('showcalendar', true);
-		$datefield->setConfig('dateformat', 'dd/MM/YYYY');
+		$this->beforeUpdateCMSFields(function($fields) {
+			$datefield = new DateField('Date','Date (DD/MM/YYYY)*');
+			$datefield->setConfig('showcalendar', true);
+			$datefield->setConfig('dateformat', 'dd/MM/YYYY');
+			
+			$imagefield = new UploadField('Image','Image');
+			$imagefield->allowedExtensions = array('jpg', 'gif', 'png');
+			$imagefield->setFolderName("Managed/CalendarImages");
+			$imagefield->setCanPreviewFolder(false);
+			
+			$fields->addFieldToTab('Root.Main', new TextField('Title',"Event Title*"));
+			$fields->addFieldToTab('Root.Main', $datefield);
+			$fields->addFieldToTab('Root.Main', new TextField('Time',"Time (HH:MM)"));
+			$fields->addFieldToTab('Root.Main', new TextareaField('Description'));
+			$fields->addFieldToTab('Root.Main', $imagefield);
+		});
+
+		$fields = parent::getCMSFields();
 		
-		$imagefield = new UploadField('Image','Image');
-		$imagefield->allowedExtensions = array('jpg', 'gif', 'png');
-		$imagefield->setFolderName("Managed/CalendarImages");
-		$imagefield->setCanPreviewFolder(false);
-		
-		$fields = new FieldList(
-			new TextField('Title',"Event Title*"),
-			$datefield,
-			new TextField('Time',"Time (HH:MM)"),
-			new TextareaField('Description'),
-			$imagefield
-		);
-		
-		$this->extend('updateCMSFields', $fields);		
+		$this->extend('updateCMSFields', $fields);	
+
+		$fields->removeFieldFromTab("Root.Main","CalendarPageID");
+
 		return $fields;		
 	}
 	
