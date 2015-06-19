@@ -71,18 +71,34 @@ class CalendarEntry extends DataObject{
 	}
 		
 	function canCreate($members = null) {
+		$extended = $this->extendedCan(__FUNCTION__, $members);
+		if($extended !== null) {
+			return $extended;
+		}
 		return true;
 	}
 	
 	function canEdit($members = null) {
+		$extended = $this->extendedCan(__FUNCTION__, $members);
+		if($extended !== null) {
+			return $extended;
+		}
 		return true;
 	}
 	
 	function canDelete($members = null) {
+		$extended = $this->extendedCan(__FUNCTION__, $members);
+		if($extended !== null) {
+			return $extended;
+		}
 		return true;
 	}
 	
 	function canView($members = null) {
+		$extended = $this->extendedCan(__FUNCTION__, $members);
+		if($extended !== null) {
+			return $extended;
+		}
 		return true;
 	}
  	
