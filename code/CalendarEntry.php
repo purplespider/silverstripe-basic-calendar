@@ -60,12 +60,12 @@ class CalendarEntry extends DataObject{
 		return $fields;
 	}
 
-	function getMonthDigit(){
+	function getMonthDigit() {
 	 	$date = strtotime($this->Date);
 		return date('m',$date);
 	}
 
-	function getYear(){
+	function getYear() {
 		$date = strtotime($this->Date);
 		return date('Y',$date);
 	}
