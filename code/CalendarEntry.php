@@ -34,30 +34,34 @@ class CalendarEntry extends DataObject
         return $result;
     }
 
+    /**
+     * @return FieldList
+     */
     public function getCMSFields()
     {
-        $this->beforeUpdateCMSFields(function ($fields) {
-            $datefield = new DateField('Date', 'Date (DD/MM/YYYY)*');
-            $datefield->setConfig('showcalendar', true);
-            $datefield->setConfig('dateformat', 'dd/MM/YYYY');
-
-            $imagefield = new UploadField('Image', 'Image');
-            $imagefield->allowedExtensions = array('jpg', 'gif', 'png');
-            $imagefield->setFolderName("Managed/CalendarImages");
-            $imagefield->setCanPreviewFolder(false);
-
-            $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title*"));
-            $fields->addFieldToTab('Root.Main', $datefield);
-            $fields->addFieldToTab('Root.Main', new TextField('Time', "Time (HH:MM)"));
-            $fields->addFieldToTab('Root.Main', new TextareaField('Description'));
-            $fields->addFieldToTab('Root.Main', $imagefield);
-        });
-
         $fields = parent::getCMSFields();
 
-        $this->extend('updateCMSFields', $fields);
+        // add the new fields in
+        $fields->addFieldsToTab(
+            'Root.Main',
+            array(
+                TextField::create('Title', "Event Title*"),
+                DateField::create('Date', 'Date (DD/MM/YYYY)*')
+                    ->setConfig('showcalendar', true)
+                    ->setConfig('dateformat', 'dd/MM/YYYY'),
+                TextField::create('Time', "Time (HH:MM)"),
+                TextareaField::create('Description'),
 
-        $fields->removeFieldFromTab("Root.Main", "CalendarPageID");
+                UploadField::create('Image', 'Image')
+                    ->setAllowedExtensions(array('jpg', 'gif', 'png'))
+                    ->setFolderName("Managed/CalendarImages")
+                    ->setCanPreviewFolder(false)
+            )
+        );
+
+        $fields->removeFieldFromTab('Root.Main', 'CalendarPageID');
+
+        $this->extend('updateCalendarCMSFields', $fields);
 
         return $fields;
     }
