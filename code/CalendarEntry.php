@@ -65,12 +65,14 @@ class CalendarEntry extends DataObject
     public function getMonthDigit()
     {
         $date = strtotime($this->Date);
+
         return date('m', $date);
     }
 
     public function getYear()
     {
         $date = strtotime($this->Date);
+
         return date('Y', $date);
     }
 
@@ -80,6 +82,7 @@ class CalendarEntry extends DataObject
         if ($extended !== null) {
             return $extended;
         }
+
         return true;
     }
 
@@ -89,6 +92,7 @@ class CalendarEntry extends DataObject
         if ($extended !== null) {
             return $extended;
         }
+
         return true;
     }
 
@@ -98,6 +102,7 @@ class CalendarEntry extends DataObject
         if ($extended !== null) {
             return $extended;
         }
+
         return true;
     }
 
@@ -107,6 +112,7 @@ class CalendarEntry extends DataObject
         if ($extended !== null) {
             return $extended;
         }
+
         return true;
     }
 }
