@@ -20,9 +20,7 @@ class CalendarPage extends Page
     {
         $fields = parent::getCMSFields();
 
-        if ($this->EventTabFirst) {
-            $fields->insertBefore(new Tab('Events'), 'Main');
-        }
+        if ($this->EventTabFirst) $fields->insertBefore(new Tab('Events'), 'Main');
 
         $config = GridFieldConfig_RecordEditor::create();
         $gridField = new GridField("Events", "Upcoming Events", $this->Events()->where("Date >= CURRENT_DATE OR Date IS NULL"), $config);
@@ -47,12 +45,13 @@ class CalendarPage_Controller extends Page_Controller
 
     public function init()
     {
+        parent::init();
+
         if (Director::fileExists(project() . "/css/calendar.css")) {
             Requirements::css(project() . "/css/calendar.css");
         } else {
             Requirements::css("basic-calendar/css/calendar.css");
         }
-        parent::init();
     }
 
     public function getEvents($dates = "all")
@@ -74,25 +73,28 @@ class CalendarPage_Controller extends Page_Controller
 
     public function ShowPast()
     {
-        return isset($_GET['past']) ? true : false;
+        return isset($_GET['past']);
     }
 
     // THIS PAGE'S ENTRIES
     public function getFutureCalendarEntries()
     {
         $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this-ID))->Sort('Date, Time')->where("Date >= CURRENT_DATE OR Date IS NULL"));
+
         return $entries;
     }
 
     public function getGroupedPastCalendarEntries()
     {
         $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this-ID))->Sort('Date, Time')->where("Date < CURRENT_DATE"));
+
         return $entries;
     }
 
     public function getGroupedCalendarEntries()
     {
         $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this-ID))->Sort('Date, Time'));
+
         return $entries;
     }
 
@@ -100,18 +102,21 @@ class CalendarPage_Controller extends Page_Controller
     public function getAllGroupedFutureCalendarEntries()
     {
         $entries = GroupedList::create(CalendarEntry::get()->Sort('Date, Time')->where("Date >= CURRENT_DATE OR Date IS NULL"));
+
         return $entries;
     }
 
     public function getAllGroupedPastCalendarEntries()
     {
         $entries = GroupedList::create(CalendarEntry::get()->Sort('Date, Time')->where("Date < CURRENT_DATE"));
+
         return $entries;
     }
 
     public function getAllGroupedCalendarEntries()
     {
         $entries = GroupedList::create(CalendarEntry::get()->Sort('Date, Time'));
+
         return $entries;
     }
 }
