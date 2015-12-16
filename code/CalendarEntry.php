@@ -7,7 +7,11 @@ class CalendarEntry extends DataObject
         "Title" => "Text",
         "Date" => "Date",
         "Time" => "Text",
-        "Description" => "Text"
+        "Location" => "Varchar(255)",
+        "Description" => "Text",
+        "Teaser" => "HTMLText",
+        "Content" => "HTMLText",
+        "Featured" => "Boolean",
     );
 
     public static $has_one = array(
@@ -49,7 +53,11 @@ class CalendarEntry extends DataObject
             $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title*"));
             $fields->addFieldToTab('Root.Main', $datefield);
             $fields->addFieldToTab('Root.Main', new TextField('Time', "Time (HH:MM)"));
+            $fields->addFieldToTab('Root.Main', new TextField('Location'));
             $fields->addFieldToTab('Root.Main', new TextareaField('Description'));
+            $fields->addFieldToTab('Root.Main', new CheckboxField('Featured', 'Featured on the Homepage'));
+            $fields->addFieldToTab('Root.Main', HTMLEditorField::create('Teaser')->setRows('3'));
+            $fields->addFieldToTab('Root.Main', new HTMLEditorField('Content'));
             $fields->addFieldToTab('Root.Main', $imagefield);
         });
 
