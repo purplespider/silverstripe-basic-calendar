@@ -39,7 +39,7 @@ class CalendarEntry extends DataObject
         $this->beforeUpdateCMSFields(function ($fields) {
             $datefield = new DateField('Date', 'Date (DD/MM/YYYY)*');
             $datefield->setConfig('showcalendar', true);
-            $datefield->setConfig('dateformat', 'dd/MM/YYYY');
+            $datefield->setConfig('dateformat', 'dd/MM/yyyy');
 
             $imagefield = new UploadField('Image', 'Image');
             $imagefield->allowedExtensions = array('jpg', 'gif', 'png');
