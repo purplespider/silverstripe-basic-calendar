@@ -1,4 +1,5 @@
 # Basic Calendar Module
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/purplespider/silverstripe-basic-calendar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/purplespider/silverstripe-basic-calendar/?branch=master)
 
 ## Introduction
 

@@ -40,17 +40,18 @@ class CalendarEntry extends DataObject
             $datefield = new DateField('Date', 'Date (DD/MM/YYYY)*');
             $datefield->setConfig('showcalendar', true);
             $datefield->setConfig('dateformat', 'dd/MM/yyyy');
-
-            $imagefield = new UploadField('Image', 'Image');
-            $imagefield->allowedExtensions = array('jpg', 'gif', 'png');
-            $imagefield->setFolderName("Managed/CalendarImages");
-            $imagefield->setCanPreviewFolder(false);
+            
+            $imageField = new UploadField('Image', 'Image');
+            $imageField->getValidator()->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
+            $imageField->setConfig('allowedMaxFileNumber', 1);
+            $imageField->setFolderName('Managed/CalendarImages');
+            $imageField->setCanPreviewFolder(false);
 
             $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title*"));
             $fields->addFieldToTab('Root.Main', $datefield);
             $fields->addFieldToTab('Root.Main', new TextField('Time', "Time (HH:MM)"));
             $fields->addFieldToTab('Root.Main', new TextareaField('Description'));
-            $fields->addFieldToTab('Root.Main', $imagefield);
+            $fields->addFieldToTab('Root.Main', $imageField);
         });
 
         $fields = parent::getCMSFields();
