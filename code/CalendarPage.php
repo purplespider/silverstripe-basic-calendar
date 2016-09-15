@@ -54,9 +54,10 @@ class CalendarPage_Controller extends Page_Controller
         }
     }
 
-    public function getEvents($dates = "all")
+    public function getEvents($dates = "all", $order = "normal")
     {
         $where = null;
+        $sortOrder = null;
         $filter = array();
 
         if ($dates == "future") {
@@ -64,11 +65,17 @@ class CalendarPage_Controller extends Page_Controller
         } elseif ($dates == "past") {
             $where = "Date < CURRENT_DATE";
         }
+        
+        if ($order == "normal") {
+          $sortOrder = "Date, Time";
+        } else if ($order == "reverse") {
+          $sortOrder = "Date DESC, Time";
+        }
 
         if (!$this->ManageAllEvents) {
             $filter =  array("CalendarPageID"=>$this->ID);
         }
-        return GroupedList::create(CalendarEntry::get()->filter($filter)->Sort('Date, Time')->where($where));
+        return GroupedList::create(CalendarEntry::get()->filter($filter)->Sort($sortOrder)->where($where));
     }
 
     public function ShowPast()
