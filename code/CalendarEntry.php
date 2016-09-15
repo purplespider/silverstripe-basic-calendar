@@ -69,6 +69,11 @@ class CalendarEntry extends DataObject
 
         return date('m', $date);
     }
+    
+    public function Link()
+    {
+      return $this->CalendarPage()->Link()."#".$this->ID;
+    }
 
     public function getYear()
     {
