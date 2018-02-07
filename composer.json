@@ -1,7 +1,7 @@
 {
 	"name": "purplespider/basic-calendar",
 	"description": "A simple calendar page module",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"homepage": "https://github.com/purplespider/silverstripe-basic-calendar",
 	"keywords": ["silverstripe", "calendar", "event"],
 	"license": "BSD-3-Clause",
@@ -13,8 +13,20 @@
 		"issues": "https://github.com/purplespider/silverstripe-basic-calendar/issues"
 	},
 	"require": {
-		"silverstripe/framework": "^3.1",
-		"silverstripe/cms": "^3.1"
+		"silverstripe/framework": "~4.0",
+		"silverstripe/cms": "~4.0"
 	},
-	"replace": {"silverstripe/basic-calendar": "*"}
+	"replace": {
+		"silverstripe/file-listing": "*"
+	},
+  "extra": {
+      "expose": [
+          "client/dist"
+      ]
+  },
+  "autoload": {
+      "psr-4": {
+          "PurpleSpider\\SilverStripe\\BasicCalendar\\": "src/"
+      }
+  }
 }

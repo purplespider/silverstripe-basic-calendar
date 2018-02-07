@@ -1,26 +1,47 @@
 <?php
 
+namespace PurpleSpider\SilverStripe\BasicCalendar;
+
+
+
+
+
+
+use SilverStripe\ORM\FieldType\DBDate;
+use PurpleSpider\SilverStripe\BasicCalendar\CalendarPage;
+use SilverStripe\Assets\Image;
+use SilverStripe\Forms\DateField;
+use SilverStripe\Forms\FileHandleField;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\ORM\DataObject;
+
+
+
 class CalendarEntry extends DataObject
 {
 
-    public static $db = array(
+    private static $db = array(
         "Title" => "Text",
-        "Date" => "Date",
+        "Date" => DBDate::class,
         "Time" => "Text",
         "Description" => "Text"
     );
 
-    public static $has_one = array(
-        "CalendarPage" => "CalendarPage",
-        "Image" => "Image"
+    private static $has_one = array(
+        "CalendarPage" => CalendarPage::class,
+        "Image" => Image::class
     );
 
-    public static $summary_fields = array(
+    private static $summary_fields = array(
         "Date" => "Date",
         "Title" => "Title"
     );
+    
+    private static $table_name = 'CalendarEntry';
 
-    public static $default_sort = "Date ASC, Time ASC";
+    private static $default_sort = "Date ASC, Time ASC";
 
     public function validate()
     {
@@ -37,19 +58,20 @@ class CalendarEntry extends DataObject
     public function getCMSFields()
     {
         $this->beforeUpdateCMSFields(function ($fields) {
-            $datefield = new DateField('Date', 'Date (DD/MM/YYYY)*');
-            $datefield->setConfig('showcalendar', true);
-            $datefield->setConfig('dateformat', 'dd/MM/yyyy');
+            $datefield = DateField::create('Date', 'Date');
+            // $datefield->setConfig('showcalendar', true);
+            // $datefield->setConfig('dateformat', 'dd/MM/yyyy');
             
-            $imageField = new UploadField('Image', 'Image');
-            $imageField->getValidator()->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
-            $imageField->setConfig('allowedMaxFileNumber', 1);
-            $imageField->setFolderName('Managed/CalendarImages');
-            $imageField->setCanPreviewFolder(false);
+            $imageField = Injector::inst()->create(FileHandleField::class, 'Image');
+            // $imageField = new UploadField(Image::class, Image::class);
+            // $imageField->getValidator()->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
+            // $imageField->setConfig('allowedMaxFileNumber', 1);
+            // $imageField->setFolderName('Managed/CalendarImages');
+            // $imageField->setCanPreviewFolder(false);
 
-            $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title*"));
+            $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title"));
             $fields->addFieldToTab('Root.Main', $datefield);
-            $fields->addFieldToTab('Root.Main', new TextField('Time', "Time (HH:MM)"));
+            $fields->addFieldToTab('Root.Main', TextField::create('Time', "Time")->setDescription("HH:MM"));
             $fields->addFieldToTab('Root.Main', new TextareaField('Description'));
             $fields->addFieldToTab('Root.Main', $imageField);
         });
@@ -82,7 +104,7 @@ class CalendarEntry extends DataObject
         return date('Y', $date);
     }
 
-    public function canCreate($members = null)
+    public function canCreate($members = null, $context = array())
     {
         $extended = $this->extendedCan(__FUNCTION__, $members);
         if ($extended !== null) {
@@ -92,7 +114,7 @@ class CalendarEntry extends DataObject
         return true;
     }
 
-    public function canEdit($members = null)
+    public function canEdit($members = null, $context = array())
     {
         $extended = $this->extendedCan(__FUNCTION__, $members);
         if ($extended !== null) {
@@ -102,7 +124,7 @@ class CalendarEntry extends DataObject
         return true;
     }
 
-    public function canDelete($members = null)
+    public function canDelete($members = null, $context = array())
     {
         $extended = $this->extendedCan(__FUNCTION__, $members);
         if ($extended !== null) {
@@ -112,7 +134,7 @@ class CalendarEntry extends DataObject
         return true;
     }
 
-    public function canView($members = null)
+    public function canView($members = null, $context = array())
     {
         $extended = $this->extendedCan(__FUNCTION__, $members);
         if ($extended !== null) {

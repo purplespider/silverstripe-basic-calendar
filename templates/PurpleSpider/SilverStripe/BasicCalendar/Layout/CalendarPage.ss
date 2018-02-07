@@ -1,3 +1,5 @@
+<% require css("purplespider/basic-calendar: client/dist/css/calendar.css") %>
+
 <h1>$Title</h1>
 
 $Content
@@ -13,7 +15,7 @@ $Content
 			<% loop getEvents(past).GroupedBy(Year) %>
 
 				<% loop Children %>
-					<% include CalendarEntry %>
+					<% include PurpleSpider/SilverStripe/BasicCalendar/CalendarEntry %>
 				<% end_loop %>
 
 		<% end_loop %>
@@ -34,7 +36,7 @@ $Content
 			<% loop getEvents(future).GroupedBy(Year) %>
 
 				<% loop Children %>
-					<% include CalendarEntry %>
+					<% include PurpleSpider/SilverStripe/BasicCalendar/CalendarEntry %>
 				<% end_loop %>
 
 		<% end_loop %>
