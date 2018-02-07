@@ -13,12 +13,12 @@ This module has been designed to have just the minimum required features, to avo
  * James Cocker (ssmodulesgithub@pswd.biz)
  
 ## Requirements
- * Silverstripe 3.0+
+ * Silverstripe 4.0+
+ * Use the 3.1 branch for SilverStripe 3.1 support
  
 ## Installation Instructions
 
-1. Place the contents of this repository in a directory named *basic-calendar* at the root of your SilverStripe install.
-2. Visit yoursite.com/dev/build to rebuild the database.
+1. `composer require purplespider/basic-calendar` 
 3. Log in the CMS, and create a new Calendar Page page.
 
 ## Features
@@ -28,4 +28,4 @@ This module has been designed to have just the minimum required features, to avo
 * Option to make the Manage Events tab the default fro the page
 * Option to also display events from other Calendar Pages - So you can have several mini calendars, and a main one.
 * Link for users to view Past or Future events.
-* Past Events are displated on a separate CMS tab, so they stay out of your way.
+* Past Events are displayed on a separate CMS tab, so they stay out of your way.

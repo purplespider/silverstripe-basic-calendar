@@ -1,20 +1,49 @@
 <?php
 
+namespace PurpleSpider\SilverStripe\BasicCalendar;
+
+use Page;
+
+
+
+
+
+
+
+
+
+use SilverStripe\ORM\FieldType\DBBoolean;
+use PurpleSpider\SilverStripe\BasicCalendar\CalendarEntry;
+use SilverStripe\Forms\Tab;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Control\Director;
+use SilverStripe\View\Requirements;
+use SilverStripe\ORM\GroupedList;
+use PageController;
+
+
+
 class CalendarPage extends Page
 {
 
-    public static $description = "Provides an interface to add calendar events";
+    private static $description = "Provides an interface to add calendar events";
 
-    public static $db = array(
-        "EventTabFirst" => "Boolean",
-        "ManageAllEvents" => "Boolean"
+    private static $db = array(
+        "EventTabFirst" => DBBoolean::class,
+        "ManageAllEvents" => DBBoolean::class
     );
 
-    public static $has_many = array(
-        "Events" => "CalendarEntry"
+    private static $has_many = array(
+        "Events" => CalendarEntry::class
     );
+    
+    private static $table_name = 'CalendarPage';
+    
 
-    public static $icon = 'basic-calendar/images/date';
+    private static $icon = 'basic-calendar/images/date';
 
     public function getCMSFields()
     {
@@ -27,32 +56,27 @@ class CalendarPage extends Page
         $fields->addFieldToTab("Root.Events", $gridField);
 
         $config = GridFieldConfig_RecordEditor::create();
-        $config->removeComponentsByType('GridFieldAddNewButton');
+        $config->removeComponentsByType(GridFieldAddNewButton::class);
         $gridField = new GridField("PastEvents", "Past Events", $this->Events()->where("Date < CURRENT_DATE"), $config);
         $fields->addFieldToTab("Root.PastEvents", $gridField);
 
-        $fields->addFieldToTab("Root.Main", new CheckboxField("EventTabFirst", "CMS: Set Events Tab as Default"));
-        $fields->addFieldToTab("Root.Main", new CheckboxField("ManageAllEvents", "Template: Display Events from other pages too"));
+        
 
+        return $fields;
+    }
+    
+    function getSettingsFields() {
+        $fields = parent::getSettingsFields();
+        $fields->addFieldToTab("Root.Settings", new CheckboxField("EventTabFirst", "CMS: Set Events Tab as Default"));
+        $fields->addFieldToTab("Root.Settings", new CheckboxField("ManageAllEvents", "Template: Display Events from other pages too"));
         return $fields;
     }
 }
 
-class CalendarPage_Controller extends Page_Controller
+class CalendarPage_Controller extends PageController
 {
 
-    public static $allowed_actions = array();
-
-    public function init()
-    {
-        parent::init();
-
-        if (Director::fileExists(project() . "/css/calendar.css")) {
-            Requirements::css(project() . "/css/calendar.css");
-        } else {
-            Requirements::css("basic-calendar/css/calendar.css");
-        }
-    }
+    private static $allowed_actions = array();
 
     public function getEvents($dates = "all", $order = "normal")
     {
