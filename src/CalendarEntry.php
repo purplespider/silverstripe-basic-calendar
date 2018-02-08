@@ -2,11 +2,6 @@
 
 namespace PurpleSpider\SilverStripe\BasicCalendar;
 
-
-
-
-
-
 use SilverStripe\ORM\FieldType\DBDate;
 use PurpleSpider\SilverStripe\BasicCalendar\CalendarPage;
 use SilverStripe\Assets\Image;
@@ -17,27 +12,34 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\DataObject;
 
-
-
 class CalendarEntry extends DataObject
 {
 
-    private static $db = array(
+    private static $db = [
         "Title" => "Text",
         "Date" => DBDate::class,
         "Time" => "Text",
-        "Description" => "Text"
-    );
+        "Description" => "Text",
+    ];
 
-    private static $has_one = array(
+    private static $has_one = [
         "CalendarPage" => CalendarPage::class,
-        "Image" => Image::class
-    );
+        "Image" => Image::class,
+    ];
+    
+    private static $owns = [
+        "Image",
+    ];
 
-    private static $summary_fields = array(
+    private static $summary_fields = [
         "Date" => "Date",
-        "Title" => "Title"
-    );
+        "Title" => "Title",
+    ];
+    
+    function onBeforeWrite() {  
+      $this->Image()->publishRecursive(); // Not required in SilverStripe 4.1?
+      parent::onBeforeWrite();
+    }
     
     private static $table_name = 'CalendarEntry';
 
