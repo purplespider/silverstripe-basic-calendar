@@ -18,7 +18,7 @@ class CalendarEntry extends DataObject
     private static $db = [
         "Title" => "Text",
         "Date" => DBDate::class,
-        "Time" => "Text",
+        "Time" => "Varchar(100)",
         "Description" => "Text",
     ];
 
@@ -26,20 +26,11 @@ class CalendarEntry extends DataObject
         "CalendarPage" => CalendarPage::class,
         "Image" => Image::class,
     ];
-    
-    private static $owns = [
-        "Image",
-    ];
 
     private static $summary_fields = [
         "Date" => "Date",
         "Title" => "Title",
     ];
-    
-    function onBeforeWrite() {  
-      $this->Image()->publishRecursive(); // Not required in SilverStripe 4.1?
-      parent::onBeforeWrite();
-    }
     
     private static $table_name = 'CalendarEntry';
 
@@ -49,10 +40,10 @@ class CalendarEntry extends DataObject
     {
         $result = parent::validate();
         if (!$this->Title) {
-            $result->error('Title is required');
+            $result->addError('Title is required');
         }
         if (!$this->Date) {
-            $result->error('Date is required');
+            $result->addError('Date is required');
         }
         return $result;
     }
