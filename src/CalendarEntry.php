@@ -25,7 +25,7 @@ class CalendarEntry extends DataObject
     private static $db = array(
         "Title" => "Text",
         "Date" => DBDate::class,
-        "Time" => "Text",
+        "Time" => "Varchar(100)",
         "Description" => "Text"
     );
 
