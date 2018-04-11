@@ -87,7 +87,7 @@ class CalendarEntry extends DataObject
     
     public function niceDate()
     {
-      return $this->obj('Date')->Format('d MMMM y (eee)');
+      return $this->obj('Date')->Format('d MMMM y, eee');
     }
     
     public function Link()
