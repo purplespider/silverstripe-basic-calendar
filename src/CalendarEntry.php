@@ -28,7 +28,7 @@ class CalendarEntry extends DataObject
     ];
 
     private static $summary_fields = [
-        "Date" => "Date",
+        "niceDate" => "Date",
         "Title" => "Title",
     ];
     
@@ -83,6 +83,11 @@ class CalendarEntry extends DataObject
         $date = strtotime($this->Date);
 
         return date('m', $date);
+    }
+    
+    public function niceDate()
+    {
+      return $this->obj('Date')->Format('d MMMM y (eee)');
     }
     
     public function Link()

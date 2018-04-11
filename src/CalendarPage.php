@@ -18,6 +18,7 @@ use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Control\Director;
 use SilverStripe\View\Requirements;
@@ -52,6 +53,9 @@ class CalendarPage extends Page
         if ($this->EventTabFirst) $fields->insertBefore(new Tab('Events'), 'Main');
 
         $config = GridFieldConfig_RecordEditor::create();
+        $config->getComponentByType(GridFieldSortableHeader::class)->setFieldSorting([
+            'niceDate' => 'Date',
+        ]);
         $gridField = new GridField("Events", "Upcoming Events", $this->Events()->where("Date >= CURRENT_DATE OR Date IS NULL"), $config);
         $fields->addFieldToTab("Root.Events", $gridField);
 
@@ -59,6 +63,8 @@ class CalendarPage extends Page
         $config->removeComponentsByType(GridFieldAddNewButton::class);
         $gridField = new GridField("PastEvents", "Past Events", $this->Events()->where("Date < CURRENT_DATE"), $config);
         $fields->addFieldToTab("Root.PastEvents", $gridField);
+        
+        
 
         
 
