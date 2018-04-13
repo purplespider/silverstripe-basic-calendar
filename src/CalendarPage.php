@@ -3,15 +3,6 @@
 namespace PurpleSpider\SilverStripe\BasicCalendar;
 
 use Page;
-
-
-
-
-
-
-
-
-
 use SilverStripe\ORM\FieldType\DBBoolean;
 use PurpleSpider\SilverStripe\BasicCalendar\CalendarEntry;
 use SilverStripe\Forms\Tab;
@@ -24,8 +15,6 @@ use SilverStripe\Control\Director;
 use SilverStripe\View\Requirements;
 use SilverStripe\ORM\GroupedList;
 use PageController;
-
-
 
 class CalendarPage extends Page
 {
@@ -43,8 +32,7 @@ class CalendarPage extends Page
     
     private static $table_name = 'CalendarPage';
     
-
-    private static $icon = 'basic-calendar/images/date';
+    private static $icon = 'purplespider/basic-calendar:client/dist/images/date-file.gif';
 
     public function getCMSFields()
     {
