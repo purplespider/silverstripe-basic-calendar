@@ -7,10 +7,10 @@ use PurpleSpider\SilverStripe\BasicCalendar\CalendarPage;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FileHandleField;
-use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\AssetAdmin\Forms\UploadField;
 
 class CalendarEntry extends DataObject
 {
@@ -28,8 +28,9 @@ class CalendarEntry extends DataObject
     ];
 
     private static $summary_fields = [
-        "niceDate" => "Date",
+        "niceDate" => "Date & Time",
         "Title" => "Title",
+        "ImageCMSThumb" => "Image",
     ];
     
     private static $table_name = 'CalendarEntry';
@@ -55,12 +56,10 @@ class CalendarEntry extends DataObject
             // $datefield->setConfig('showcalendar', true);
             // $datefield->setConfig('dateformat', 'dd/MM/yyyy');
             
-            $imageField = Injector::inst()->create(FileHandleField::class, 'Image');
-            // $imageField = new UploadField(Image::class, Image::class);
-            // $imageField->getValidator()->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
-            // $imageField->setConfig('allowedMaxFileNumber', 1);
-            // $imageField->setFolderName('Managed/CalendarImages');
-            // $imageField->setCanPreviewFolder(false);
+            $imageField = UploadField::create('Image', 'Image');
+            $imageField->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
+            $imageField->setFolderName('Managed/CalendarImages');
+            $fields->addFieldToTab('Root.Main', $imageField, "Content");
 
             $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title"));
             $fields->addFieldToTab('Root.Main', $datefield);
@@ -87,7 +86,18 @@ class CalendarEntry extends DataObject
     
     public function niceDate()
     {
-      return $this->obj('Date')->Format('d MMMM y, eee');
+      $dateFormat = $this->obj('Date')->Format('d MMMM y, eee');
+      
+      if ($this->Time) {
+        return $dateFormat.", ".$this->Time;
+      }
+      
+      return $dateFormat;
+    }
+    
+    public function ImageCMSThumb()
+    {
+      return $this->ImageID ? $this->Image()->Fit(50,20) : "";
     }
     
     public function Link()
