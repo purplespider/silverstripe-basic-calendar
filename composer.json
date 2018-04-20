@@ -16,9 +16,6 @@
 		"silverstripe/framework": "^4.1",
 		"silverstripe/cms": "^4.1"
 	},
-	"replace": {
-		"silverstripe/file-listing": "*"
-	},
   "extra": {
       "expose": [
           "client/dist"
