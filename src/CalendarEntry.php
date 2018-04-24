@@ -63,7 +63,7 @@ class CalendarEntry extends DataObject
 
             $fields->addFieldToTab('Root.Main', new TextField('Title', "Event Title"));
             $fields->addFieldToTab('Root.Main', $datefield);
-            $fields->addFieldToTab('Root.Main', TextField::create('Time', "Time")->setDescription("HH:MM"));
+            $fields->addFieldToTab('Root.Main', TextField::create('Time', "Time"));
             $fields->addFieldToTab('Root.Main', new TextareaField('Description'));
             $fields->addFieldToTab('Root.Main', $imageField);
         });
