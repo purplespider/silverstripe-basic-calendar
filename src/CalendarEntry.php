@@ -33,6 +33,10 @@ class CalendarEntry extends DataObject
         "ImageCMSThumb" => "Image",
     ];
     
+    private static $owns = [
+        "Image"
+    ];
+    
     private static $table_name = 'CalendarEntry';
 
     private static $default_sort = "Date ASC, Time ASC";
