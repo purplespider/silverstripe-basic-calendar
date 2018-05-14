@@ -1,10 +1,10 @@
 <?php
 
-namespace PurpleSpider\SilverStripe\BasicCalendar;
+namespace PurpleSpider\BasicCalendar;
 
 use Page;
 use SilverStripe\ORM\FieldType\DBBoolean;
-use PurpleSpider\SilverStripe\BasicCalendar\CalendarEntry;
+use PurpleSpider\BasicCalendar\CalendarEntry;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridField;
@@ -67,7 +67,7 @@ class CalendarPage extends Page
     }
 }
 
-class CalendarPage_Controller extends PageController
+class CalendarPageController extends PageController
 {
 
     private static $allowed_actions = array();

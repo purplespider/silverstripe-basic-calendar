@@ -1,9 +1,9 @@
 <?php
 
-namespace PurpleSpider\SilverStripe\BasicCalendar;
+namespace PurpleSpider\BasicCalendar;
 
 use SilverStripe\ORM\FieldType\DBDate;
-use PurpleSpider\SilverStripe\BasicCalendar\CalendarPage;
+use PurpleSpider\BasicCalendar\CalendarPage;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FileHandleField;

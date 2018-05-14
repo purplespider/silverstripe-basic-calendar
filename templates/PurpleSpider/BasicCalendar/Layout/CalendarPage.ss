@@ -15,7 +15,7 @@ $Content
 			<% loop getEvents(past).GroupedBy(Year) %>
 
 				<% loop Children %>
-					<% include PurpleSpider/SilverStripe/BasicCalendar/CalendarEntry %>
+					<% include PurpleSpider/BasicCalendar/CalendarEntry %>
 				<% end_loop %>
 
 		<% end_loop %>
@@ -36,7 +36,7 @@ $Content
 			<% loop getEvents(future).GroupedBy(Year) %>
 
 				<% loop Children %>
-					<% include PurpleSpider/SilverStripe/BasicCalendar/CalendarEntry %>
+					<% include PurpleSpider/BasicCalendar/CalendarEntry %>
 				<% end_loop %>
 
 		<% end_loop %>
