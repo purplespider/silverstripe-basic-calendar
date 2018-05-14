@@ -1,0 +1,4 @@
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    PurpleSpider\SilverStripe\BasicCalendar\CalendarPage: PurpleSpider\BasicCalendar\CalendarPage
+    PurpleSpider\SilverStripe\BasicCalendar\CalendarEntry: PurpleSpider\BasicCalendar\CalendarEntry
