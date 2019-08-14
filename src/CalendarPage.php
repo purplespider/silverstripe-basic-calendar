@@ -105,21 +105,21 @@ class CalendarPageController extends PageController
     // THIS PAGE'S ENTRIES
     public function getFutureCalendarEntries()
     {
-        $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this-ID))->Sort('Date, Time')->where("Date >= CURRENT_DATE OR Date IS NULL"));
+        $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this->ID))->Sort('Date, Time')->where("Date >= CURRENT_DATE OR Date IS NULL"));
 
         return $entries;
     }
 
     public function getGroupedPastCalendarEntries()
     {
-        $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this-ID))->Sort('Date, Time')->where("Date < CURRENT_DATE"));
+        $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this->ID))->Sort('Date, Time')->where("Date < CURRENT_DATE"));
 
         return $entries;
     }
 
     public function getGroupedCalendarEntries()
     {
-        $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this-ID))->Sort('Date, Time'));
+        $entries = GroupedList::create(CalendarEntry::get()->filter(array("CalendarPageID"=>$this->ID))->Sort('Date, Time'));
 
         return $entries;
     }

@@ -115,6 +115,13 @@ class CalendarEntry extends DataObject
 
         return date('Y', $date);
     }
+    
+    public function getMonth()
+    {
+        $date = strtotime($this->Date);
+
+        return date('F', $date);
+    }
 
     public function canCreate($members = null, $context = array())
     {
