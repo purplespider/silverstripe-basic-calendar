@@ -32,7 +32,6 @@ class CalendarPage extends Page
     
     private static $table_name = 'CalendarPage';
     
-    private static $icon = 'purplespider/basic-calendar:client/dist/images/date-file.gif';
     private static $icon_class = 'font-icon-p-event-alt';
 
     public function getCMSFields()
