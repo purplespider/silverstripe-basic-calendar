@@ -38,7 +38,7 @@ class CalendarPage extends Page
     {
         $fields = parent::getCMSFields();
 
-        if ($this->EventTabFirst) $fields->insertBefore(new Tab('Events'), 'Main');
+        if ($this->EventTabFirst) $fields->insertBefore('Main', new Tab('Events'));
 
         $config = GridFieldConfig_RecordEditor::create();
         $config->getComponentByType(GridFieldSortableHeader::class)->setFieldSorting([
