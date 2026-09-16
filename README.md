@@ -13,7 +13,8 @@ This module has been designed to have just the minimum required features, to avo
  * James Cocker (ssmodulesgithub@pswd.biz)
  
 ## Requirements
- * Silverstripe 4.4+ & 5+
+ * Silverstripe 6+
+ * Use the 1.x releases (composer require purplespider/basic-calendar:^1.0) for Silverstripe 4.4/5 support
  * Use the 1.0 branch for SilverStripe 3.1 support
  
 ## Installation Instructions

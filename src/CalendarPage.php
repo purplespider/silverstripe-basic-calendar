@@ -13,7 +13,7 @@ use SilverStripe\Forms\GridField\GridFieldSortableHeader;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Control\Director;
 use SilverStripe\View\Requirements;
-use SilverStripe\ORM\GroupedList;
+use SilverStripe\Model\List\GroupedList;
 use PageController;
 
 class CalendarPage extends Page
@@ -29,14 +29,29 @@ class CalendarPage extends Page
     private static $has_many = array(
         "Events" => CalendarEntry::class
     );
-    
+
     private static $table_name = 'CalendarPage';
-    
-    private static $icon_class = 'font-icon-p-event-alt';
+
+    private static $cms_icon_class = 'font-icon-p-event-alt';
+
+    /**
+     * These fields are added manually in getCMSFields()/getSettingsFields(),
+     * so prevent SS6 auto-scaffolding from adding duplicates.
+     */
+    private static $scaffold_cms_fields_settings = [
+        'ignoreFields' => [
+            'EventTabFirst',
+            'ManageAllEvents',
+        ],
+    ];
 
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
+
+        // Remove the auto-scaffolded "Events" tab (from the has_many relation)
+        // since it's replaced with custom Upcoming/Past Events tabs below.
+        $fields->removeByName('Events');
 
         if ($this->EventTabFirst) $fields->insertBefore('Main', new Tab('Events'));
 
