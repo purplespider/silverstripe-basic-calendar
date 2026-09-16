@@ -5,7 +5,7 @@
 
 	<% if Image %>
 		<a href="$Image.ScaleWidth(900).URL" class="lightbox">
-			<% loop Image.ScaleWidth(150) %><img class="right" src="$URL" width="$Width" height="$Height" /><% end_loop %>
+			<% with Image.ScaleWidth(150) %><img class="right" src="$URL" width="$Width" height="$Height" /><% end_with %>
 		</a>
 	<% end_if %>
 

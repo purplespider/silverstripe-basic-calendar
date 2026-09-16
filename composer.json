@@ -13,8 +13,8 @@
 		"issues": "https://github.com/purplespider/silverstripe-basic-calendar/issues"
 	},
 	"require": {
-		"silverstripe/framework": "^4.4 || ^5",
-		"silverstripe/cms": "^4.4 || ^5"
+		"silverstripe/framework": "^6",
+		"silverstripe/cms": "^6"
 	},
   "extra": {
       "expose": [
@@ -23,7 +23,7 @@
   },
   "autoload": {
       "psr-4": {
-          "PurpleSpider\\SilverStripe\\BasicCalendar\\": "src/"
+          "PurpleSpider\\BasicCalendar\\": "src/"
       }
   }
 }

@@ -11,6 +11,7 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Core\Validation\ValidationResult;
 
 class CalendarEntry extends DataObject
 {
@@ -41,7 +42,7 @@ class CalendarEntry extends DataObject
 
     private static $default_sort = "Date ASC, Time ASC";
 
-    public function validate()
+    public function validate(): ValidationResult
     {
         $result = parent::validate();
         if (!$this->Title) {
@@ -83,7 +84,7 @@ class CalendarEntry extends DataObject
 
     public function getMonthDigit()
     {
-        $date = strtotime($this->Date);
+        $date = strtotime((string) $this->Date);
 
         return date('m', $date);
     }
@@ -111,14 +112,14 @@ class CalendarEntry extends DataObject
 
     public function getYear()
     {
-        $date = strtotime($this->Date);
+        $date = strtotime((string) $this->Date);
 
         return date('Y', $date);
     }
-    
+
     public function getMonth()
     {
-        $date = strtotime($this->Date);
+        $date = strtotime((string) $this->Date);
 
         return date('F', $date);
     }
