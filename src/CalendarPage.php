@@ -32,7 +32,7 @@ class CalendarPage extends Page
 
     private static $table_name = 'CalendarPage';
 
-    private static $icon_class = 'font-icon-p-event-alt';
+    private static $cms_icon_class = 'font-icon-p-event-alt';
 
     /**
      * These fields are added manually in getCMSFields()/getSettingsFields(),
